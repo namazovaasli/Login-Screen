@@ -297,6 +297,8 @@ final class LoginViewController: UIViewController {
     }
 }
 
+extension LoginViewController : UITextFieldDelegate {
+    
     func textFieldDidEndEditing(_ textField: UITextField) {
         guard let container = textField.superview, let text = textField.text else { return }
         
@@ -330,4 +332,5 @@ final class LoginViewController: UIViewController {
             container.layer.borderColor = UIColor.black.cgColor
         }
     }
-
+    
+}
