@@ -300,36 +300,3 @@ extension RegisterViewController: UITextFieldDelegate {
         }
     }
 }
-
-
-//
-//[inputStack,agreementStack].forEach {inputagreementStack.addArrangedSubview($0)}
-//            inputagreementStack.axis = .vertical
-//            inputagreementStack.spacing = 16
-//
-//            [register,orStack,socialStack].forEach{buttonStack.addArrangedSubview($0)}
-//            buttonStack.axis = .vertical
-//            buttonStack.spacing = 12
-//
-//            [passwordTextField,confirmPasswordTextField].forEach {passwordTextStack.addArrangedSubview($0)}
-//            passwordTextStack.axis = .vertical
-//            passwordTextStack.spacing = 8
-//
-//
-//
-//            [textStack, inputagreementStack, buttonStack, loginStack].forEach{mainStack.addArrangedSubview($0)}
-//                mainStack.axis = .vertical
-//                mainStack.spacing = 27
-//
-//            [textStack, inputagreementStack,buttonStack, languageStack,mainStack,loginStack].forEach { view.addSubview($0) }
-
-
-//
-//buttonStack.snp.makeConstraints { make in
-//    make.top.equalTo(inputagreementStack.snp.bottom).offset(28)
-//}
-//
-//loginStack.snp.makeConstraints { make in
-//    make.bottom.equalTo(view.safeAreaLayoutGuide).inset(16)
-//    make.centerX.equalToSuperview()
-//}
