@@ -7,4 +7,6 @@ enum ButtonCases {
     case google
     case apple
     case guest
+    case submit
+    case cancel
 }
