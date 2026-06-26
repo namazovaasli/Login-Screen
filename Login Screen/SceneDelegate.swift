@@ -23,6 +23,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func changeRootViewController(to viewController: UIViewController) {
         guard let window else { return }
         window.rootViewController = viewController
+        
     }
 }
 

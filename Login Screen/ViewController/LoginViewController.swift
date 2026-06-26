@@ -72,11 +72,6 @@ final class LoginViewController: UIViewController {
         navigationController?.setNavigationBarHidden(false, animated: true)
     }
     
-    private func delegateTextField() {
-        phoneTextField.inputTextField.delegate = self
-        emailTextField.inputTextField.delegate = self
-    }
-    
     private func setupUI() {
         azbutton.setTitle("AZ", for: .normal)
         symbol.text = "|"
@@ -192,6 +187,9 @@ final class LoginViewController: UIViewController {
         
         forgetPasswordButton.addTarget(self, action: #selector(didTapForgotPassword), for: .touchUpInside)
         login.addTarget(self, action: #selector(didTapLoginButton), for: .touchUpInside)
+        phoneTextField.inputTextField.addTarget(self, action: #selector(phoneChanged), for: .editingChanged)
+            emailTextField.inputTextField.addTarget(self, action: #selector(emailChanged), for: .editingChanged)
+            passwordTextField.inputTextField.addTarget(self, action: #selector(passwordChanged), for: .editingChanged)
         registerButton.addTarget(self, action: #selector(didTapRegister), for: .touchUpInside)
     }
     
@@ -219,50 +217,57 @@ final class LoginViewController: UIViewController {
     }
     
     @objc
-    private func didTapLoginButton() {
-        guard let phone = phoneTextField.text, !phone.isEmpty,
-              let password = passwordTextField.text,  !password.isEmpty,
-              let email = emailTextField.text, !email.isEmpty
-        else { return }
-        let user = User(phone: phone, email: email, password: password)
-        router.changeRootViewController(viewController: router.mainTabbarController(user: user))
+    private func phoneChanged() {
+        let text = phoneTextField.text ?? ""
+            if text.isEmpty {
+                phoneTextField.resetValidationStatus()
+            } else {
+                let isValid = ValidationManager.isValidPhone(text)
+                phoneTextField.setValidationStatus(isValid: isValid)
+            }
     }
-}
 
-extension LoginViewController: UITextFieldDelegate {
-    
-    func textFieldDidEndEditing(_ textField: UITextField) {
-        switch textField.tag {
-        case 0 :
-            print("")
-        case 1:
-            validateEmail(email: textField.text)
-        default:
+    @objc
+    private func emailChanged() {
+        let text = emailTextField.text ?? ""
+            if text.isEmpty {
+                emailTextField.resetValidationStatus()
+            } else {
+                let isValid = ValidationManager.isValidEmail(text)
+                emailTextField.setValidationStatus(isValid: isValid)
+            }
+    }
+
+    @objc
+    private func passwordChanged() {
+        let text = passwordTextField.text ?? ""
+            if text.isEmpty {
+                passwordTextField.resetValidationStatus()
+            } else {
+                let isValid = ValidationManager.isValidPassword(text)
+                passwordTextField.setValidationStatus(isValid: isValid)
+            }
+    }
+    @objc
+    private func didTapLoginButton() {
+        guard let enteredPhone = phoneTextField.text,
+              let email = emailTextField.text,
+              let password = passwordTextField.text else { return }
+        
+        let isPhoneValid = ValidationManager.isValidPhone(enteredPhone)
+        let isEmailValid = ValidationManager.isValidEmail(email)
+        let isPasswordValid = ValidationManager.isValidPassword(password)
+        
+        if !isPhoneValid || !isEmailValid || !isPasswordValid {
+            print("Logində xəta var, keçid dayandırıldı.")
             return
         }
-    }
-    
-    func textField(_ textField: UITextField, shouldChangeCharactersInRanges ranges: [NSValue], replacementString string: String) -> Bool {
-        switch textField.tag {
-        case 0 :
-            print("")
-        case 1:
-            validateEmail(email: textField.text)
-        default:
-            return false
-        }
         
-        return true
-    }
-  
-    
-    private func validateEmail(email: String?) {
-        guard let email = email else { return }
-        if !email.isEmpty  && email.contains("@") && email.contains(".") {
-            emailTextField.layer.borderColor = UIColor.green.cgColor
-        } else {
-            emailTextField.layer.borderColor = UIColor.red.cgColor
-        }
+        let fullPhoneNumber = "+994" + enteredPhone.replacingOccurrences(of: " ", with: "")
+        let user = User(name: "", surname: "", phone: fullPhoneNumber, email: email, password: password)
+        
+        let targetVC = router.mainTabbarController(user: user)
+        router.changeRootViewController(viewController: targetVC)
     }
 }
 
@@ -271,42 +276,3 @@ extension LoginViewController: UITextFieldDelegate {
 
 
 
-
-//
-//extension LoginViewController : UITextFieldDelegate {
-//    
-//    func textFieldDidEndEditing(_ textField: UITextField) {
-//        guard let container = textField.superview, let text = textField.text else { return }
-//        
-//        switch textField.tag {
-//        case 1:
-//            if text.count <= 9 {
-//                container.layer.borderColor = UIColor.systemGreen.cgColor
-//            } else {
-//                container.layer.borderColor = UIColor.systemRed.cgColor
-//            }
-//            
-//        case 2:
-//            if text.contains("@") && text.contains(".") {
-//                container.layer.borderColor = UIColor.systemGray5.cgColor
-//            } else if !text.isEmpty {
-//                container.layer.borderColor = UIColor.systemRed.cgColor
-//            } else {
-//                container.layer.borderColor = UIColor.systemGray5.cgColor
-//            }
-//            
-//        case 3:
-//            container.layer.borderColor = UIColor.systemGray5.cgColor
-//        default:
-//            container.layer.borderColor = UIColor.systemGray5.cgColor
-//        }
-//    }
-//    
-//    
-//    func textFieldDidBeginEditing(_ textField: UITextField) {
-//        if let container = textField.superview {
-//            container.layer.borderColor = UIColor.black.cgColor
-//        }
-//    }
-//    
-//}

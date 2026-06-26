@@ -13,9 +13,11 @@ protocol AppRouterProtocol {
     func mainTabbarController(user: User) -> UITabBarController
     func homeViewController() -> UIViewController
     func favoriteViewController() -> UIViewController
-   // func settingsViewController() -> UIViewController
     func profileViewController(user: User) -> UIViewController
     func forgotPasswordViewController() -> UIViewController
+    func verifyViewController() -> UIViewController
+    func newPasswordViewController() -> UIViewController
+    func successViewController() -> UIViewController
     func searchViewController() -> UIViewController
     func loginViewController() -> UIViewController
     func registerViewController() -> UIViewController

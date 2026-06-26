@@ -10,6 +10,14 @@ import SnapKit
 
 class BaseTextFieldView :UIView{
     
+    func setValidationStatus(isValid: Bool) {
+        self.layer.borderWidth = 1.5
+        self.layer.borderColor = isValid ? UIColor.systemGreen.cgColor : UIColor.systemRed.cgColor
+    }
+    func resetValidationStatus() {
+            self.layer.borderWidth = 1.0
+            self.layer.borderColor = UIColor.systemGray4.cgColor
+        }
     
     let verticalStackView = UIStackView()
     let horizontalStackView = UIStackView()

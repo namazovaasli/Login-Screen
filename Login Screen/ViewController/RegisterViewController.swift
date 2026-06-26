@@ -78,14 +78,6 @@ class RegisterViewController: UIViewController {
         navigationController?.setNavigationBarHidden(false, animated: true)
     }
     
-    private func delegateTextField() {
-        nameTextField.inputTextField.delegate = self
-        surnameTextField.inputTextField.delegate = self
-        emailTextField.inputTextField.delegate = self
-        phoneTextField.inputTextField.delegate = self
-        passwordTextField.inputTextField.delegate = self
-    }
-    
     private func setupUI() {
         azbutton.setTitle("AZ", for: .normal)
         symbol.text = "|"
@@ -229,6 +221,13 @@ class RegisterViewController: UIViewController {
         azbutton.addTarget(self, action: #selector(toggleLanguage(_ :)), for: .touchUpInside)
         enbutton.addTarget(self, action: #selector(toggleLanguage(_ :)), for: .touchUpInside)
         register.addTarget(self, action: #selector(didTapRegisterButton), for: .touchUpInside)
+        nameTextField.inputTextField.addTarget(self, action: #selector(nameChanged), for: .editingChanged)
+            surnameTextField.inputTextField.addTarget(self, action: #selector(surnameChanged), for: .editingChanged)
+            emailTextField.inputTextField.addTarget(self, action: #selector(emailChanged), for: .editingChanged)
+            phoneTextField.inputTextField.addTarget(self, action: #selector(phoneChanged), for: .editingChanged)
+            passwordTextField.inputTextField.addTarget(self, action: #selector(passwordChanged), for: .editingChanged)
+            confirmPasswordTextField.inputTextField.addTarget(self, action: #selector(confirmPasswordChanged), for: .editingChanged)
+        
         loginButton.addTarget(self, action: #selector(didTapLogin), for: .touchUpInside)
     }
     @objc
@@ -252,51 +251,100 @@ class RegisterViewController: UIViewController {
     }
     
     @objc
-    private func didTapRegisterButton() {
-        guard let name = nameTextField.text, !name.isEmpty,
-              let surname = surnameTextField.text, !surname.isEmpty,                    let email = emailTextField.text, !email.isEmpty,                        let phone = phoneTextField.text, !phone.isEmpty,
-            let password = passwordTextField.text,  !password.isEmpty
-        else { return }
-        let user = User(name:name,surname: surname, phone: phone, email: email, password: password)
-        router.changeRootViewController(viewController: router.mainTabbarController(user: user))
-        navigationController?.popViewController(animated: true)
+    private func nameChanged() {
+        let text = nameTextField.text ?? ""
+            if text.isEmpty {
+                nameTextField.resetValidationStatus()
+            } else {
+                let isValid = ValidationManager.isValidNameOrSurname(text)
+                nameTextField.setValidationStatus(isValid: isValid)
+            }
     }
-}
 
+    @objc
+    private func surnameChanged() {
+        let text = surnameTextField.text ?? ""
+            if text.isEmpty {
+                surnameTextField.resetValidationStatus()
+            } else {
+                let isValid = ValidationManager.isValidNameOrSurname(text)
+                surnameTextField.setValidationStatus(isValid: isValid)
+            }
+    }
 
-extension RegisterViewController: UITextFieldDelegate {
+    @objc
+    private func emailChanged() {
+        let text = emailTextField.text ?? ""
+            if text.isEmpty {
+                emailTextField.resetValidationStatus()
+            } else {
+                let isValid = ValidationManager.isValidEmail(text)
+                emailTextField.setValidationStatus(isValid: isValid)
+            }
+    }
+
+    @objc
+    private func phoneChanged() {
+        let text = phoneTextField.text ?? ""
+            if text.isEmpty {
+                phoneTextField.resetValidationStatus()
+            } else {
+                let isValid = ValidationManager.isValidPhone(text)
+                phoneTextField.setValidationStatus(isValid: isValid)
+            }
+    }
+
+    @objc
+    private func passwordChanged() {
+        let text = passwordTextField.text ?? ""
+            if text.isEmpty {
+                passwordTextField.resetValidationStatus()
+            } else {
+                let isValid = ValidationManager.isValidPassword(text)
+                passwordTextField.setValidationStatus(isValid: isValid)
+            }
+            confirmPasswordChanged()
+    }
+    @objc
+    private func confirmPasswordChanged() {
+        let pass = passwordTextField.text ?? ""
+        let confirmPass = confirmPasswordTextField.text ?? ""
+        if confirmPass.isEmpty {
+                confirmPasswordTextField.resetValidationStatus()
+            } else {
+                let isValid = (pass == confirmPass)
+                confirmPasswordTextField.setValidationStatus(isValid: isValid)
+            }
+    }
     
-    func textFieldDidEndEditing(_ textField: UITextField) {
-        switch textField.tag {
-        case 0 :
-            print("")
-        case 1:
-            validateEmail(email: textField.text)
-        default:
+    @objc
+    private func didTapRegisterButton() {
+        guard let name = nameTextField.text,
+              let surname = surnameTextField.text,
+              let email = emailTextField.text,
+              let enteredPhone = phoneTextField.text,
+              let password = passwordTextField.text,
+              let confirmPassword = confirmPasswordTextField.text else { return }
+        
+        let isNameValid = ValidationManager.isValidNameOrSurname(name)
+        let isSurnameValid = ValidationManager.isValidNameOrSurname(surname)
+        let isEmailValid = ValidationManager.isValidEmail(email)
+        let isPhoneValid = ValidationManager.isValidPhone(enteredPhone)
+        let isPasswordValid = ValidationManager.isValidPassword(password)
+        let isConfirmValid = (password == confirmPassword) && !confirmPassword.isEmpty
+        
+        
+        if !isNameValid || !isSurnameValid || !isEmailValid || !isPhoneValid || !isPasswordValid || !isConfirmValid {
+            print("Qeydiyyatda xəta var, keçid bloklandı.")
             return
         }
-    }
-    
-    func textField(_ textField: UITextField, shouldChangeCharactersInRanges ranges: [NSValue], replacementString string: String) -> Bool {
-        switch textField.tag {
-        case 0 :
-            print("")
-        case 1:
-            validateEmail(email: textField.text)
-        default:
-            return false
-        }
         
-        return true
+        let fullPhoneNumber = "+994" + enteredPhone.replacingOccurrences(of: " ", with: "")
+        let newUser = User(name: name, surname: surname, phone: fullPhoneNumber, email: email, password: password)
+        
+        let targetVC = router.mainTabbarController(user: newUser)
+        router.changeRootViewController(viewController: targetVC)
     }
-    
-    
-    private func validateEmail(email: String?) {
-        guard let email = email else { return }
-        if !email.isEmpty  && email.contains("@") && email.contains(".") {
-            emailTextField.layer.borderColor = UIColor.green.cgColor
-        } else {
-            emailTextField.layer.borderColor = UIColor.red.cgColor
-        }
-    }
+   
 }
+
