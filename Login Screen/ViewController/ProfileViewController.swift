@@ -11,7 +11,7 @@ import SnapKit
 class ProfileViewController : UIViewController {
     
     private let router: AppRouterProtocol
-       private let user: User
+    private var user: User
        
        init(router: AppRouterProtocol, user: User) {
            self.router = router
@@ -22,15 +22,22 @@ class ProfileViewController : UIViewController {
        required init?(coder: NSCoder) {
            fatalError("init(coder:) has not been implemented")
        }
+    
+    protocol ProfileEditDelegate: AnyObject {
+        func didUpdateProfile(email: String, phone: String)
+    }
+    
     private let avatarImageView = UIImageView()
         private let emailLabel = UILabel()
-        
+    
+        private let emailTextField = BaseTextFieldView(textFieldStyle: .email)
+    
         private let editButton = UIButton(type: .system)
         private let renewPasswordButton = UIButton(type: .system)
         private let logoutButton = UIButton(type: .system)
         
         private let mainStackView = UIStackView()
-    
+        
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,12 +53,14 @@ class ProfileViewController : UIViewController {
             avatarImageView.contentMode = .scaleAspectFill
             avatarImageView.clipsToBounds = true
             avatarImageView.layer.cornerRadius = 50
-            
+            updateProfileLabels()
             emailLabel.text = user.email
             emailLabel.font = .systemFont(ofSize: 16, weight: .regular)
             emailLabel.textColor = .secondaryLabel
             emailLabel.textAlignment = .center
-            
+        
+            updateProfileLabels()
+        
             editButton.setTitle("Düzəliş et", for: .normal)
             editButton.setTitleColor(.white, for: .normal)
             editButton.backgroundColor = .systemBlue
@@ -68,8 +77,12 @@ class ProfileViewController : UIViewController {
             
             mainStackView.axis = .vertical
             mainStackView.spacing = 20
-        }
         
+        }
+    private func updateProfileLabels() {
+        emailLabel.text = user.email
+    }
+    
         private func setupLayout() {
             [avatarImageView, emailLabel, editButton, renewPasswordButton, logoutButton].forEach {
                 mainStackView.addArrangedSubview($0)
@@ -96,7 +109,11 @@ class ProfileViewController : UIViewController {
             renewPasswordButton.addTarget(self, action: #selector(renewPasswordTapped), for: .touchUpInside)
             logoutButton.addTarget(self, action: #selector(logoutTapped), for: .touchUpInside)
         }
-        
+    func didUpdateProfile(email: String, phone: String) {
+           user.email = email
+            user.phone = phone
+            updateProfileLabels()
+        }
         
         @objc private func editTapped() {
             let editVC = ProfileEditViewController(router: router, user: user)
