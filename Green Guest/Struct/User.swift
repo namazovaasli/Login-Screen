@@ -1,9 +1,4 @@
-//
-//  User.swift
-//  Login Screen
-//
-//  Created by Əsli Namazova on 20.06.26.
-//
+
 import UIKit
 import SnapKit
 

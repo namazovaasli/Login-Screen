@@ -1,9 +1,4 @@
-//
-//  ValidationManager.swift
-//  Login Screen
-//
-//  Created by Əsli Namazova on 25.06.26.
-//
+
 import Foundation
 
 struct ValidationManager {

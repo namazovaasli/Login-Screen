@@ -1,9 +1,4 @@
-//
-//  ProfileEditViewController.swift
-//  Login Screen
-//
-//  Created by Əsli Namazova on 26.06.26.
-//
+
 
 import UIKit
 import SnapKit
@@ -17,13 +12,11 @@ class ProfileEditViewController: UIViewController {
     protocol ProfileEditDelegate: AnyObject {
         func didUpdateProfile(email: String, phone: String)
     }
+    private let buttonsStackView = UIStackView()
     
-    private let backStack = UIStackView()
-    private let backIcon = UIImageView(image: UIImage(named: "backicon"))
     private let backButton = UIButton(type: .system)
-    
+    private let infoLabel = UILabel()
     private let titleLabel = UILabel()
-    private let textLabel = UILabel()
     private let emailTextField = BaseTextFieldView(textFieldStyle: .email)
     private let phoneTextField = BaseTextFieldView(textFieldStyle: .phoneNumber)
     
@@ -51,77 +44,76 @@ class ProfileEditViewController: UIViewController {
     }
     
     private func setupUI() {
-        backIcon.contentMode = .scaleAspectFit
-        
-        backButton.setTitle("Əvvələ qayıt", for: .normal)
-        backButton.setTitleColor(.forgetpas, for: .normal)
-        backButton.titleLabel?.font = .systemFont(ofSize: 16, weight: .medium)
+        backButton.setImage(UIImage(named: "backicon"), for: .normal)
+        backButton.tintColor = .label
         
         titleLabel.text = "Profili redaktə"
-        titleLabel.font = .systemFont(ofSize: 28, weight: .bold)
+        titleLabel.font = .systemFont(ofSize: 20, weight: .bold)
         titleLabel.textColor = .maintext
+        titleLabel.textAlignment = .center
         
         emailTextField.inputTextField.text = user.email
-        emailTextField.inputTextField.placeholder = "Email ünvanınız"
+        emailTextField.inputTextField.placeholder = "E-poçt ünvanınız"
         phoneTextField.inputTextField.text = user.phone
         phoneTextField.inputTextField.placeholder = "Mobil nömrəniz"
-        textLabel.text = "Mobil nömrənizi dəyişmək üçün bizimlə əlaqə saxlayın."
-        textLabel.textColor = .gray
-        textLabel.font = .italicSystemFont(ofSize: 14)
-        textLabel.numberOfLines = 0
-        saveButton.setTitle("Yadda saxlayın", for: .normal)
+        infoLabel.text = "Mobil nömrənizi dəyişmək üçün bizimlə əlaqə saxlayın."
+        infoLabel.font = .systemFont(ofSize: 12, weight: .regular)
+        infoLabel.textColor = .secondaryLabel
+        infoLabel.numberOfLines = 0
+        
         cancelButton.setTitle("Ləğv edin", for: .normal)
-        cancelButton.setTitleColor(.systemRed, for: .normal)
-        cancelButton.titleLabel?.font = .systemFont(ofSize: 16, weight: .medium)
+                cancelButton.setTitleColor(.label, for: .normal)
+                cancelButton.backgroundColor = .systemGray6
+                cancelButton.layer.cornerRadius = 24
+                cancelButton.titleLabel?.font = .systemFont(ofSize: 16, weight: .medium)
+        
+        saveButton.setTitle("Yadda saxlayın", for: .normal)
+        
+        buttonsStackView.axis = .horizontal
+        buttonsStackView.spacing = 12
+        buttonsStackView.distribution = .fillEqually
     }
     
     private func setupLayout() {
-        [backIcon, backButton].forEach { backStack.addArrangedSubview($0) }
-        backStack.axis = .horizontal
-        backStack.spacing = 8
-        backStack.alignment = .center
-        
-        [backStack, titleLabel, emailTextField,phoneTextField, saveButton,cancelButton].forEach { view.addSubview($0) }
-        
-        backIcon.snp.makeConstraints { make in
-            make.width.equalTo(10)
-            make.height.equalTo(16)
-        }
-        
-        backStack.snp.makeConstraints { make in
-            make.top.equalTo(view.safeAreaLayoutGuide).offset(20)
-            make.leading.equalToSuperview().inset(16)
-            make.height.equalTo(30)
-        }
-        
-        titleLabel.snp.makeConstraints { make in
-            make.top.equalTo(backStack.snp.bottom).offset(24)
-//            make.top.equalTo(view.safeAreaLayoutGuide).offset(40)
-            make.leading.equalToSuperview().inset(16)
-        }
-    
+        [backButton, titleLabel, emailTextField, phoneTextField, infoLabel, buttonsStackView].forEach { view.addSubview($0) }
+                [cancelButton, saveButton].forEach { buttonsStackView.addArrangedSubview($0) }
+                
+                backButton.snp.makeConstraints { make in
+                    make.top.equalTo(view.safeAreaLayoutGuide).offset(20)
+                    make.leading.equalToSuperview().inset(16)
+                    make.size.equalTo(32)
+                }
+                
+                titleLabel.snp.makeConstraints { make in
+                    make.centerY.equalTo(backButton)
+                    make.centerX.equalToSuperview()
+                }
         emailTextField.snp.makeConstraints { make in
-            make.top.equalTo(titleLabel.snp.bottom).offset(20)
-            make.leading.trailing.equalToSuperview().inset(16)
-        }
-        phoneTextField.snp.makeConstraints { make in
-            make.top.equalTo(emailTextField.snp.bottom).offset(20)
-            make.leading.trailing.equalToSuperview().inset(16)
+                    make.top.equalTo(titleLabel.snp.bottom).offset(32)
+                    make.leading.trailing.equalToSuperview().inset(16)
+                    make.height.equalTo(55)
                 }
-        saveButton.snp.makeConstraints { make in
-            make.top.equalTo(emailTextField.snp.bottom).offset(40)
-            make.leading.trailing.equalToSuperview().inset(16)
-            make.height.equalTo(52)
-        }
-        cancelButton.snp.makeConstraints { make in
-            make.top.equalTo(saveButton.snp.bottom).offset(16)
-            make.centerX.equalToSuperview()
-            make.height.equalTo(44)
+                
+                phoneTextField.snp.makeConstraints { make in
+                    make.top.equalTo(emailTextField.snp.bottom).offset(20)
+                    make.leading.trailing.equalToSuperview().inset(16)
+                    make.height.equalTo(55)
                 }
+                
+                infoLabel.snp.makeConstraints { make in
+                    make.top.equalTo(phoneTextField.snp.bottom).offset(8)
+                    make.leading.trailing.equalToSuperview().inset(16)
+                }
+        buttonsStackView.snp.makeConstraints { make in
+                    make.top.equalTo(infoLabel.snp.bottom).offset(40)
+                    make.leading.trailing.equalToSuperview().inset(16)
+                    make.height.equalTo(48)
+                }
+        
     }
     
     private func setupActions() {
-        backButton.addTarget(self, action: #selector(backTapped), for: .touchUpInside)
+        backButton.addTarget(self, action: #selector(cancelTapped), for: .touchUpInside)
         saveButton.addTarget(self, action: #selector(saveTapped), for: .touchUpInside)
         cancelButton.addTarget(self, action: #selector(cancelTapped), for: .touchUpInside)
         emailTextField.inputTextField.addTarget(self, action: #selector(emailChanged), for: .editingChanged)
@@ -141,10 +133,6 @@ class ProfileEditViewController: UIViewController {
     @objc private func cancelTapped() {
             navigationController?.popViewController(animated: true)
         }
-    
-    @objc private func backTapped() {
-        navigationController?.popViewController(animated: true)
-    }
     
     @objc private func saveTapped() {
             let currentEmail = emailTextField.text ?? ""

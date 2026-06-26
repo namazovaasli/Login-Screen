@@ -1,9 +1,4 @@
-//
-//  İmageTitle.swift
-//  Login Screen
-//
-//  Created by Əsli Namazova on 25.06.26.
-//
+
 
 import UIKit
 import SnapKit
