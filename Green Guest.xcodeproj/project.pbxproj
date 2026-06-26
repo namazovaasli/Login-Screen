@@ -11,26 +11,26 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		31B84CC62FDABB52006E1C3D /* Login Screen.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Login Screen.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		31B84CC62FDABB52006E1C3D /* Green Guest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Green Guest.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		31B84CD82FDABB54006E1C3D /* Exceptions for "Login Screen" folder in "Login Screen" target */ = {
+		31B84CD82FDABB54006E1C3D /* Exceptions for "Green Guest" folder in "Green Guest" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Info.plist,
 			);
-			target = 31B84CC52FDABB52006E1C3D /* Login Screen */;
+			target = 31B84CC52FDABB52006E1C3D /* Green Guest */;
 		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		31B84CC82FDABB52006E1C3D /* Login Screen */ = {
+		31B84CC82FDABB52006E1C3D /* Green Guest */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
-				31B84CD82FDABB54006E1C3D /* Exceptions for "Login Screen" folder in "Login Screen" target */,
+				31B84CD82FDABB54006E1C3D /* Exceptions for "Green Guest" folder in "Green Guest" target */,
 			);
-			path = "Login Screen";
+			path = "Green Guest";
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -50,7 +50,7 @@
 		31B84CBD2FDABB52006E1C3D = {
 			isa = PBXGroup;
 			children = (
-				31B84CC82FDABB52006E1C3D /* Login Screen */,
+				31B84CC82FDABB52006E1C3D /* Green Guest */,
 				31B84CC72FDABB52006E1C3D /* Products */,
 			);
 			sourceTree = "<group>";
@@ -58,7 +58,7 @@
 		31B84CC72FDABB52006E1C3D /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				31B84CC62FDABB52006E1C3D /* Login Screen.app */,
+				31B84CC62FDABB52006E1C3D /* Green Guest.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -66,9 +66,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		31B84CC52FDABB52006E1C3D /* Login Screen */ = {
+		31B84CC52FDABB52006E1C3D /* Green Guest */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 31B84CD92FDABB54006E1C3D /* Build configuration list for PBXNativeTarget "Login Screen" */;
+			buildConfigurationList = 31B84CD92FDABB54006E1C3D /* Build configuration list for PBXNativeTarget "Green Guest" */;
 			buildPhases = (
 				31B84CC22FDABB52006E1C3D /* Sources */,
 				31B84CC32FDABB52006E1C3D /* Frameworks */,
@@ -79,14 +79,14 @@
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
-				31B84CC82FDABB52006E1C3D /* Login Screen */,
+				31B84CC82FDABB52006E1C3D /* Green Guest */,
 			);
-			name = "Login Screen";
+			name = "Green Guest";
 			packageProductDependencies = (
 				31B84CE12FDABD9F006E1C3D /* SnapKit */,
 			);
 			productName = "Login Screen";
-			productReference = 31B84CC62FDABB52006E1C3D /* Login Screen.app */;
+			productReference = 31B84CC62FDABB52006E1C3D /* Green Guest.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -104,7 +104,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 31B84CC12FDABB52006E1C3D /* Build configuration list for PBXProject "Login Screen" */;
+			buildConfigurationList = 31B84CC12FDABB52006E1C3D /* Build configuration list for PBXProject "Green Guest" */;
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -121,7 +121,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				31B84CC52FDABB52006E1C3D /* Login Screen */,
+				31B84CC52FDABB52006E1C3D /* Green Guest */,
 			);
 		};
 /* End PBXProject section */
@@ -154,7 +154,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "Login Screen/Info.plist";
+				INFOPLIST_FILE = "Green Guest/Info.plist";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
@@ -184,7 +184,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "Login Screen/Info.plist";
+				INFOPLIST_FILE = "Green Guest/Info.plist";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
@@ -329,7 +329,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		31B84CC12FDABB52006E1C3D /* Build configuration list for PBXProject "Login Screen" */ = {
+		31B84CC12FDABB52006E1C3D /* Build configuration list for PBXProject "Green Guest" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				31B84CDC2FDABB54006E1C3D /* Debug */,
@@ -338,7 +338,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		31B84CD92FDABB54006E1C3D /* Build configuration list for PBXNativeTarget "Login Screen" */ = {
+		31B84CD92FDABB54006E1C3D /* Build configuration list for PBXNativeTarget "Green Guest" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				31B84CDA2FDABB54006E1C3D /* Debug */,
