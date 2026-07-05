@@ -10,8 +10,8 @@ protocol AppRouterProtocol {
     func profileViewController(user: User) -> UIViewController
     func forgotPasswordViewController() -> UIViewController
     func verifyViewController() -> UIViewController
-    func newPasswordViewController() -> UIViewController
-    func successViewController() -> UIViewController
+    func newPasswordViewController(source: SuccessSource) -> UIViewController
+    func successViewController(source: SuccessSource) -> UIViewController
     func searchViewController() -> UIViewController
     func loginViewController() -> UIViewController
     func registerViewController() -> UIViewController

@@ -25,12 +25,12 @@ class AppRouter: AppRouterProtocol {
     func verifyViewController() -> UIViewController {
         VerifyViewController(router: self)
     }
-    func newPasswordViewController() -> UIViewController {
-        NewPasswordViewController(router: self)
-    }
-    func successViewController() -> UIViewController {
-        SuccessViewController(router: self)
-    }
+    func newPasswordViewController(source: SuccessSource) -> UIViewController {
+           NewPasswordViewController(router: self, source: source)
+       }
+    func successViewController(source: SuccessSource) -> UIViewController {
+           SuccessViewController(router: self, source: source)
+       }
        func loginViewController()-> UIViewController{
            LoginViewController(router: self)
        }
