@@ -1,5 +1,4 @@
 
-
 import UIKit
 import SnapKit
 
@@ -51,6 +50,29 @@ class BaseTextFieldView :UIView{
             emailTextFieldDesign()
         case .password:
             passwordTextFieldDesign()
+        case .confirmPassword :
+            confirmPasswordTextFieldDesign()
+        }
+    }
+    
+    func confirmPasswordTextFieldDesign() {
+        firstLabel.text = "Yenidən şifrəniz"
+        firstLabel.textColor = UIColor(named: "textfieldcolor")
+        inputTextField.isSecureTextEntry = true
+        inputTextField.placeholder = "••••••••"
+        
+        eyeButton.setImage(UIImage(named: "eye"), for: .normal)
+        eyeButton.tintColor = .gray
+        eyeButton.addTarget(self, action: #selector(togglePassword), for: .touchUpInside)
+        eyeButton.imageView?.contentMode = .scaleAspectFit
+        
+        horizontalStackView.addArrangedSubview(inputTextField)
+        self.addSubview(eyeButton)
+        
+        eyeButton.snp.makeConstraints { make in
+            make.trailing.equalToSuperview().inset(20)
+            make.centerY.equalTo(inputTextField)
+            make.size.equalTo(16)
         }
     }
     
@@ -118,7 +140,7 @@ class BaseTextFieldView :UIView{
         self.addSubview(verticalStackView)
         verticalStackView.axis = .vertical
         horizontalStackView.axis = .horizontal
-        self.layer.borderColor = UIColor.systemGray4.cgColor 
+        self.layer.borderColor = UIColor.systemGray4.cgColor
         verticalStackView.snp.makeConstraints { make in
             make.top.bottom.trailing.equalToSuperview().inset(8)
             make.leading.equalToSuperview().inset(15)

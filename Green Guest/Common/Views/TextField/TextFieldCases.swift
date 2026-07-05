@@ -9,4 +9,5 @@ enum TextFieldCases {
     case email
     case phoneNumber
     case password
+    case confirmPassword
 }
